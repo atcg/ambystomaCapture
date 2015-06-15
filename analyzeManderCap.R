@@ -1,4 +1,4 @@
-setwd("~/src/ambystomaCapture//")
+setwd("~/src/ambystomaCapture")
 mappingStatsNoDSN <- read.csv("mappingStats.csv", stringsAsFactors=FALSE)
 mappingStatsNoDSN$post.50_uL_PCR_totalDNA <- mappingStatsNoDSN$post.50_uL_PCR_concentration_cleaned * 50
 mappingStatsNoDSN$CTSonly6iterRawMapRatePERCENT <- mappingStatsNoDSN$CTSonly6iterRawMapRate * 100
@@ -7,13 +7,13 @@ mappingStatsNoDSN$CTSonly6iterPercDupesPERCENT <- mappingStatsNoDSN$CTSonly6iter
 
 
 # Figure 3
-png("~/Box Sync//UCLA/Research/Papers/ambystoma_optimization/finalFigures/Fig3_qPCRave_to_rawMappingRate.png", width=600, height=600, units="px")
+png("~/Box Sync/UCLA/Research/Papers/ambystoma_optimization/finalFigures/Fig3_qPCRave_to_rawMappingRate.png", width=600, height=600, units="px")
 plot(mappingStatsNoDSN$CTSonly6iterRawMapRatePERCENT ~ mappingStatsNoDSN$Ave_delta_Cp, col=mappingStatsNoDSN$individual, pch=20, xlab="Mean change in qPCR cycle number after enrichment", ylab="Raw mapping rate (%)", main="Predicting enrichment efficiency from qPCR validation", cex=1.2)
 abline(lm(mappingStatsNoDSN$CTSonly6iterRawMapRatePERCENT ~ mappingStatsNoDSN$Ave_delta_Cp), lwd=2, col="red")
 dev.off()
 
 # Figure 4
-png("~/Box Sync//UCLA/Research/Papers/ambystoma_optimization/finalFigures/Fig4_PCRconcentration_to_rawMappingRate.png", width=1000, height=500, units="px")
+png("~/Box Sync/UCLA/Research/Papers/ambystoma_optimization/finalFigures/Fig4_PCRconcentration_to_rawMappingRate.png", width=1000, height=500, units="px")
 par(mfrow=c(1,2))
 plot(mappingStatsNoDSN$CTSonly6iterRawMapRatePERCENT ~ mappingStatsNoDSN$post.50_uL_PCR_totalDNA, col=mappingStatsNoDSN$individual, pch=20, xlab="Total DNA after amplifying 1/2 of the post-enrichment pool (ng)", ylab="Raw mapping rate (%)", main="All Libraries", cex=1.2)
 abline(lm(mappingStatsNoDSN$CTSonly6iterRawMapRatePERCENT ~ mappingStatsNoDSN$post.50_uL_PCR_totalDNA), lwd=2, col="red")
@@ -24,13 +24,13 @@ dev.off()
 # Figure 5: showing average target depth
 # Within analyzeTargets.R
 targetStatsAve <- read.csv("targetMetricsRENAMED.aveDepths.txt", sep="\t")
-png("~/Box Sync//UCLA/Research/Papers/ambystoma_optimization/finalFigures/Fig5_targetAveDepths.png", width=600, height=600, units="px")
+png("~/Box Sync/UCLA/Research/Papers/ambystoma_optimization/finalFigures/Fig5_targetAveDepths.png", width=600, height=600, units="px")
 par(mar=c(5,5,5,5))
 hist(targetStatsAve$AverageTargetDepthAcrossHSP, breaks=500, xlim=c(0,30), xlab="Average depth across target", ylab="Number of targets", main="Distribution of sequencing effort-corrected depth across targets", cex.axis=1.5, cex.lab=1.5, cex.main=1.5)
 dev.off()
 
 # Figure 6--4 panel showing reduction in PCR duplication rates with different variables and increase in unique read on target rate
-png("~/Box Sync//UCLA/Research/Papers/ambystoma_optimization/finalFigures/Fig6_four-panel.png", width=1200, height=1200, units="px")
+png("~/Box Sync/UCLA/Research/Papers/ambystoma_optimization/finalFigures/Fig6_four-panel.png", width=1200, height=1200, units="px")
 par(mfrow=c(2,2), mar=c(5,5,5,5))
 # PCR duplication rates
 plot(mappingStatsNoDSN$individual_dna_in_capture, mappingStatsNoDSN$CTSonly6iterPercDupesPERCENT, col=c(mappingStatsNoDSN$individual), cex=2, pch=20, xlab="Amount of individual DNA in capture reaction (ng)", ylab="PCR duplication rate (%)", main="Input DNA vs. PCR duplication rate", cex.lab=1.8, cex.main=1.8, cex.axis=1.8)
@@ -45,7 +45,7 @@ abline(lm(mappingStatsNoDSN$CTSonly6iterDiscountMapRatePERCENT ~ mappingStatsNoD
 dev.off()
 
 # Figure 7: showing predicted vs. expected values for two-variable model
-png("~/Box Sync//UCLA/Research/Papers/ambystoma_optimization/finalFigures/Fig7_predictedVsRealValues.png", width=600, height=600, units="px")
+png("~/Box Sync/UCLA/Research/Papers/ambystoma_optimization/finalFigures/Fig7_predictedVsRealValues.png", width=600, height=600, units="px")
 par(mar=c(5,5,5,5))
 twoVarModel <- lm(mappingStatsNoDSN$CTSonly6iterDiscountMapRatePERCENT ~ mappingStatsNoDSN$cot.multiplier + mappingStatsNoDSN$individual_dna_in_capture)
 plot(twoVarModel$fitted.values, mappingStatsNoDSN$CTSonly6iterDiscountMapRatePERCENT, cex=1.5, pch=20, xlab="Predicted unique reads on target from c0t-1 + individual input DNA model (%)", ylab="Actual unique reads on target (%)", main="Predicted vs. actual percentages of unique reads on target", cex.lab=1.4, cex.main=1.4, cex.axis=1.4, col=mappingStatsNoDSN$individual)

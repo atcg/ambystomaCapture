@@ -8,8 +8,8 @@ targetAveWithLength <- merge(targetStatsAve, targetLengths, "Target")
 test <- read.csv("targetMetrics.aveDepths.sepCategories.txt", sep="\t")
 
 
-SNPS_across_baits <- read.table("~/src/manderCap/SNPcountAcrossBaits.txt", quote="\"", header=TRUE)
-#SNPpercentages_across_baits <- read.table("~/src/manderCap/percentagesOfSNPsAcrossBaits.txt", quote="\"")
+SNPS_across_baits <- read.table("~/src/ambystomaCapture//SNPcountAcrossBaits.txt", quote="\"", header=TRUE)
+#SNPpercentages_across_baits <- read.table("~/src/ambystomaCapture/percentagesOfSNPsAcrossBaits.txt", quote="\"")
 
 targetAveWithLengthAndSNPcount <- merge(targetAveWithLength, SNPS_across_baits, "Target")
 
