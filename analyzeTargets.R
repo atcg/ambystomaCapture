@@ -1,4 +1,4 @@
-setwd("~/src/manderCap/")
+setwd("~/src/ambystomaCapture//")
 
 # targetStats <- read.csv("targetMetrics.wholeHSPcounts.txt", sep="\t")
 targetStatsAve <- read.csv("targetMetricsRENAMED.aveDepths.txt", sep="\t")
